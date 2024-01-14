@@ -10,14 +10,12 @@ function App(){
   const [message, setMessage] = useState('Search for Music!')
   const [data, setData] = useState([])
 
-  const API_URL = 'https://itunes.apple.com/search?term='
-
   useEffect(() => {
     const fetchData = async () => {
       document.title = `${search} Music`
       const url = encodeURI(`https://itunes.apple.com/search?term=${search}`)
-      const response = await fetch(API_URL + search)
-      const resData = await response.json()
+      const response = await fetch(url)
+      const data = await response.json()
       
 
       if (data.results.length) {
@@ -41,10 +39,10 @@ function App(){
         <Router>
           <Routes>
             <Route path='/' element={
-              <Fragment>
+              <div>
                 <SearchBar handleSubmit={handleSubmit} />
                 <Gallery data={data}/>
-              </Fragment>
+              </div>
             } />
             <Route path='/album/:id' element={<AlbumView />} />
             <Route path='/artist/:id' element={<ArtistView />} />
